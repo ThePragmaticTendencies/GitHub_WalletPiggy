@@ -1,0 +1,188 @@
+  [
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/starbucks.png",
+      "Name": "Coffee",
+      "UniqueID": 1
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/smokes.png",
+      "Name": "Cigarrettes",
+      "UniqueID": 2
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/food.png",
+      "Name": "Food",
+      "UniqueID": 3
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/drinks.png",
+      "Name": "Drunks",
+      "UniqueID": 4
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/culture_2.png",
+      "Name": "Culture",
+      "UniqueID": 5
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/transportation.png",
+      "Name": "Transportation",
+      "UniqueID": 6
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/hygiene.png",
+      "Name": "Hygiene",
+      "UniqueID": 7
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/fuel.png",
+      "Name": "Fuel",
+      "UniqueID": 8
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/phone.png",
+      "Name": "Phone",
+      "UniqueID": 10
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/luxury.png",
+      "Name": "Extras",
+      "UniqueID": 9
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/hostels.png",
+      "Name": "Bookings",
+      "UniqueID": 12
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/gifts.png",
+      "Name": "Gifts",
+      "UniqueID": 14
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/eatingout.png",
+      "Name": "Eating Out",
+      "UniqueID": 13
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/bills.png",
+      "Name": "Bills",
+      "UniqueID": 11
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/sweets.png",
+      "Name": "Sweets",
+      "UniqueID": 15
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/health.png",
+      "Name": "Health",
+      "UniqueID": 16
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/clothes.png",
+      "Name": "Clothes",
+      "UniqueID": 17
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/repairs.png",
+      "Name": "Repairs",
+      "UniqueID": 18
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/car.png",
+      "Name": "Car",
+      "UniqueID": 19
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/children.png",
+      "Name": "Child",
+      "UniqueID": 20
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/hause.png",
+      "Name": "Home",
+      "UniqueID": 21
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/work.png",
+      "Name": "Work",
+      "UniqueID": 22
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/sport.png",
+      "Name": "Sport",
+      "UniqueID": 23
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/hobby.png",
+      "Name": "Hobby",
+      "UniqueID": 24
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/charity.png",
+      "Name": "Charity",
+      "UniqueID": 25
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/other.png",
+      "Name": "Other",
+      "UniqueID": 26
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/loans.png",
+      "Name": "Loans",
+      "UniqueID": 27
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/school.png",
+      "Name": "School",
+      "UniqueID": 28
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/pets.png",
+      "Name": "Pets",
+      "UniqueID": 29
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/travel.png",
+      "Name": "Travel",
+      "UniqueID": 30
+    },
+    {
+      "Color": "DarkSalomon",
+      "ImagePath": "Assets\/souvenir.png",
+      "Name": "Souvenir",
+      "UniqueID": 30
+    }
+  ]

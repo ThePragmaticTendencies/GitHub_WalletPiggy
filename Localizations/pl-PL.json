@@ -1,0 +1,174 @@
+﻿[
+  {
+    "Key": "Bills",
+    "Value": "Rachunki"
+  },
+  {
+    "Key": "Bookings",
+    "Value": "Noclegi"
+  },
+  {
+    "Key": "Car",
+    "Value": "Auto"
+  },
+  {
+    "Key": "Charity",
+    "Value": "Pomaganie"
+  },
+  {
+    "Key": "Child",
+    "Value": "Dzieci"
+  },
+  {
+    "Key": "Cigarrettes",
+    "Value": "Tytoń"
+  },
+  {
+    "Key": "Clothes",
+    "Value": "Ubrania"
+  },
+  {
+    "Key": "Coffee",
+    "Value": "Kawa"
+  },
+  {
+    "Key": "Culture",
+    "Value": "Kulturalnie"
+  },
+  {
+    "Key": "Drunks",
+    "Value": "Alkohol"
+  },
+  {
+    "Key": "Eating Out",
+    "Value": "Restauracje"
+  },
+  {
+    "Key": "Extras",
+    "Value": "Luksusy"
+  },
+  {
+    "Key": "Food",
+    "Value": "Jedzenie"
+  },
+  {
+    "Key": "Fuel",
+    "Value": "Paliwo"
+  },
+  {
+    "Key": "Gifts",
+    "Value": "Prezenty"
+  },
+  {
+    "Key": "Health",
+    "Value": "Zdrowie"
+  },
+  {
+    "Key": "Hobby",
+    "Value": "Hobby"
+  },
+  {
+    "Key": "Home",
+    "Value": "Dom"
+  },
+  {
+    "Key": "Hygiene",
+    "Value": "Higiena"
+  },
+  {
+    "Key": "Loans",
+    "Value": "Pożyczki"
+  },
+  {
+    "Key": "Other",
+    "Value": "Inne"
+  },
+  {
+    "Key": "Pets",
+    "Value": "Zwierzaki"
+  },
+  {
+    "Key": "Phone",
+    "Value": "Telefon"
+  },
+  {
+    "Key": "Repairs",
+    "Value": "Wypadki"
+  },
+  {
+    "Key": "School",
+    "Value": "Szkoła"
+  },
+  {
+    "Key": "Sport",
+    "Value": "Sport"
+  },
+  {
+    "Key": "Sweets",
+    "Value": "Słodycze"
+  },
+  {
+    "Key": "Transportation",
+    "Value": "Transport"
+  },
+  {
+    "Key": "Travel",
+    "Value": "Podróże"
+  },
+  {
+    "Key": "Work",
+    "Value": "Praca"
+  },
+{
+"Key": "ADD",
+"Value": "Dodaj"
+},
+  {
+    "Key": "NoSdCard",
+    "Value": "Brak karty pamięci"
+  },
+  {
+    "Key": "NoAccess",
+    "Value": "Brak dostępu do folderu"
+  },
+  {
+    "Key": "LoadFileLack",
+    "Value": "Brak bazy w folderze"
+  },
+  {
+    "Key": "BackUpFailed",
+    "Value": "Przywracanie bazy zakończone błędem"
+  },
+  {
+    "Key": "BackUpLoaded",
+    "Value": "Załadowano!"
+  },
+  {
+    "Key": "DoYouWantBackUp",
+    "Value": "Przywrócić bazę / Wyczyścić"
+  },
+  {
+    "Key": "Negative",
+    "Value": "Ujemna wartość"
+  },
+  {
+    "Key": "MaxValue",
+    "Value": "Max wartość"
+  },
+  {
+    "Key": "MaxOutputLength",
+    "Value": "Max długość całkowita"
+  },
+  {
+    "Key": "MaxDecimalLength",
+    "Value": "Tylko dwa miejsca po przecinku"
+  },
+  {
+    "Key": "Souvenir",
+    "Value": "Pamiątki"
+  },
+  {
+    "Key": "MaxInteger",
+    "Value": "Max długość"
+  }
+]

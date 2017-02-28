@@ -1,0 +1,836 @@
+﻿<Page
+    x:Name="MyPage"
+    x:Class="CostDaily.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CostDaily"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:valueconverters="using:CostDaily.Converters"
+    mc:Ignorable="d"
+    d:DataContext="{Binding Source={d:DesignData Source=/DataModel/designCalc.json}}"
+    Background="{StaticResource FlatDesign_MenuGradient}">
+    <Page.Resources>
+
+        <valueconverters:DoubleRoundedConverter x:Key="DoubleRoundedConverter"/>
+        <valueconverters:CostNotificationVisibilityConverter x:Key="CostNotificationVisibilityConverter"/>
+        <valueconverters:DoubleToStringCurrencyConverter x:Key="DoubleToStringCurrencyConverter"/>
+        <valueconverters:DoubleRoundedToStringCurrencyConverter x:Key="DoubleRoundedToStringCurrencyConverter"/>
+        <valueconverters:ShortDateTimeConverter x:Key="ShortDateTimeConverter"/>
+        <valueconverters:LocalizationConverter x:Key="LocalizationConverter"/>
+        <valueconverters:ZeroImageWidthConverter x:Key="ZeroImageWidthConverter"/>
+        <valueconverters:LoadingScreenOpacityConverter x:Key="LoadingScreenOpacityConverter"/>
+        <valueconverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <valueconverters:NegativeBoolToVisibilityConverter x:Key="NegativeBoolToVisibilityConverter"/>
+
+        <CollectionViewSource
+        x:Key="CVS_DateGrouped"
+        IsSourceGrouped="True"
+        Source="{Binding MonthlyGroupedCosts}"/>
+
+        <Style x:Key="AdjustableFooterListView" TargetType="ListView">
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="TabNavigation" Value="Once"/>
+            <Setter Property="IsSwipeEnabled" Value="True"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled"/>
+            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto"/>
+            <Setter Property="ScrollViewer.ZoomMode" Value="Disabled"/>
+            <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False"/>
+            <Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="True"/>
+            <Setter Property="ItemContainerTransitions">
+                <Setter.Value>
+                    <TransitionCollection>
+                        <AddDeleteThemeTransition/>
+                        <ReorderThemeTransition/>
+                    </TransitionCollection>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListView">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}">
+                            <ScrollViewer x:Name="AdjustableScrollViewer"
+                                          AutomationProperties.AccessibilityView="Raw"
+                                          BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}"
+                                          HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                          IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                          IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}"
+                                          IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}"
+                                          IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                          IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                          TabNavigation="{TemplateBinding TabNavigation}"
+                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                          VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                          ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
+                                          >
+                                <ItemsPresenter x:Name="AdjustableListViewItemPresenter"
+                                                FooterTransitions="{TemplateBinding FooterTransitions}"
+                                                FooterTemplate="{TemplateBinding FooterTemplate}"
+                                                Footer="{TemplateBinding Footer}"
+                                                HeaderTemplate="{TemplateBinding HeaderTemplate}"
+                                                Header="{TemplateBinding Header}"
+                                                HeaderTransitions="{TemplateBinding HeaderTransitions}"
+                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                Padding="{TemplateBinding Padding}"
+                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                SizeChanged="AdjustableListViewItemPresenter_SizeChanged"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+ 
+        <Style x:Key="FlatDesignGridView" TargetType="GridView">
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="TabNavigation" Value="Once"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled"/>
+            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto"/>
+            <Setter Property="ScrollViewer.ZoomMode" Value="Disabled"/>
+            <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False"/>
+            <Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="True"/>
+            <Setter Property="IsSwipeEnabled" Value="True"/>
+            <Setter Property="ItemContainerTransitions">
+                <Setter.Value>
+                    <TransitionCollection>
+                        <AddDeleteThemeTransition/>
+                        <ReorderThemeTransition/>
+                    </TransitionCollection>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridView">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}">
+                            <ScrollViewer x:Name="ScrollViewer"
+                                          AutomationProperties.AccessibilityView="Raw"
+                                          BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}"
+                                          HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                          IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                          IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}"
+                                          IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}"
+                                          IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                          IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" 
+                                          TabNavigation="{TemplateBinding TabNavigation}"
+                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                          VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                          ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                                <Border Background="{StaticResource FlatDesign_CardsBackground}">
+                                    <ItemsPresenter FooterTransitions="{TemplateBinding FooterTransitions}"
+                                                    FooterTemplate="{TemplateBinding FooterTemplate}"
+                                                    Footer="{TemplateBinding Footer}" 
+                                                    HeaderTemplate="{TemplateBinding HeaderTemplate}"
+                                                    Header="{TemplateBinding Header}"
+                                                    HeaderTransitions="{TemplateBinding HeaderTransitions}"
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    Padding="{TemplateBinding Padding}"
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                    />
+                                </Border>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Storyboard x:Name="EllipseClickAnimation">
+
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
+                                           Storyboard.TargetName="First">
+                <DiscreteObjectKeyFrame KeyTime="0"
+                                        Value="{StaticResource Piggy_DarkRedBrush}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.15"
+                                        Value="{StaticResource FlatDesign_IconShadow}"/>
+            </ObjectAnimationUsingKeyFrames>
+
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
+                                           Storyboard.TargetName="Second">
+                <DiscreteObjectKeyFrame KeyTime="0"
+                                        Value="{StaticResource Piggy_DarkRedBrush}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.15"
+                                        Value="{StaticResource FlatDesign_IconShadow}"/>
+            </ObjectAnimationUsingKeyFrames>
+
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
+                                           Storyboard.TargetName="Third">
+                <DiscreteObjectKeyFrame KeyTime="0"
+                                        Value="{StaticResource Piggy_DarkRedBrush}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.15"
+                                        Value="{StaticResource FlatDesign_IconShadow}"/>
+            </ObjectAnimationUsingKeyFrames>
+
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
+                                           Storyboard.TargetName="EllipseButtonBorder">
+                <DiscreteObjectKeyFrame KeyTime="0"
+                                        Value="{StaticResource Piggy_LastMonthBarFill}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.15"
+                                        Value="Transparent"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+
+    </Page.Resources>
+
+    <Grid x:Name="AppGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="TopAppMenu"
+              Background="Transparent"
+              Margin="0,8,0,0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="10"
+                               Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Image Source="/Assets/walletpiggyHeadII.png"
+                   HorizontalAlignment="Left"
+                   Margin="12,0,0,0"
+                   VerticalAlignment="Stretch"/>
+
+            <Border x:Name="EllipseButtonBorder"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    BorderBrush="Black"
+                    CornerRadius="5"
+                    Width="auto"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,12,0">
+
+                <Grid x:Name="EllipseButton"
+                  MinHeight="40"
+                  MinWidth="60"
+                  HorizontalAlignment="Right">
+
+                    <StackPanel Orientation="Horizontal"
+                                                    Margin="0.5,0.5,0,0"
+                                                    HorizontalAlignment="Center">
+                        <Ellipse Height="{StaticResource Piggy_Settings_Button_Dim}"
+                                                 Width="{StaticResource Piggy_Settings_Button_Dim}"
+                                                 Fill="{StaticResource Piggy_LightBlack_FontBrush}"
+                                                 Margin="1.5"/>
+                        <Ellipse Height="{StaticResource Piggy_Settings_Button_Dim}"
+                                                 Width="{StaticResource Piggy_Settings_Button_Dim}"
+                                                 Fill="{StaticResource Piggy_LightBlack_FontBrush}"
+                                                 Margin="1.5"/>
+                        <Ellipse Height="{StaticResource Piggy_Settings_Button_Dim}"
+                                                 Width="{StaticResource Piggy_Settings_Button_Dim}"
+                                                 Fill="{StaticResource Piggy_LightBlack_FontBrush}"
+                                                 Margin="1.5"/>
+
+                    </StackPanel>
+
+                    <StackPanel x:Name="ShadowContainer"
+                                                    Orientation="Horizontal"
+                                                    Margin="0,0,0.5,0.5"
+                                                    HorizontalAlignment="Center">
+                        <Ellipse x:Name="First" Height="{StaticResource Piggy_Settings_Button_Dim}"
+                                                 Width="{StaticResource Piggy_Settings_Button_Dim}"
+                                                 Fill="{StaticResource FlatDesign_IconShadow}"
+                                                 Margin="1.5"/>
+                        <Ellipse x:Name="Second" Height="{StaticResource Piggy_Settings_Button_Dim}"
+                                                 Width="{StaticResource Piggy_Settings_Button_Dim}"
+                                                 Fill="{StaticResource FlatDesign_IconShadow}"
+                                                 Margin="1.5"/>
+                        <Ellipse x:Name="Third" Height="{StaticResource Piggy_Settings_Button_Dim}"
+                                                 Width="{StaticResource Piggy_Settings_Button_Dim}"
+                                                 Fill="{StaticResource FlatDesign_IconShadow}"
+                                                 Margin="1.5"/>
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="1">
+                <ListView x:Name="HeaderListView" 
+                      SelectedIndex="{Binding SelectedIndex, ElementName=MainPage_Pivot, Mode=TwoWay}"
+                      VerticalAlignment="Bottom"
+                      ItemContainerStyle="{StaticResource HeaderListViewContainerStyle}">
+
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+
+                    <ListViewItem HorizontalContentAlignment="Center"
+                              HorizontalAlignment="Center"
+                              Width="{Binding DataContext.PivotHeaderWidth, ElementName=MyPage}">
+                        <Image Source="Assets/add_page.png"
+                           MaxWidth="45"
+                           Height="30"
+                           HorizontalAlignment="Center"/>
+                    </ListViewItem>
+
+                    <ListViewItem HorizontalContentAlignment="Center"
+                              HorizontalAlignment="Center"
+                              BorderBrush="Aqua"
+                              Width="{Binding DataContext.PivotHeaderWidth, ElementName=MyPage}">
+                        <Image Source="Assets/summary_page.png"
+                           Height="30"
+                           MaxWidth="45"/>
+                    </ListViewItem>
+
+                    <ListViewItem HorizontalContentAlignment="Center"
+                              HorizontalAlignment="Center"
+                              BorderBrush="Aqua"
+                              Width="{Binding DataContext.PivotHeaderWidth, ElementName=MyPage}">
+                        <Image Source="Assets/delete_cost_page.png"
+                           Height="30"
+                           MaxWidth="45"/>
+                    </ListViewItem>
+
+                </ListView>
+            </Grid>
+
+        </Grid>
+
+        <Pivot Grid.Row="1"
+                   x:Name="MainPage_Pivot"
+                   Style="{StaticResource CostDaily_PivotStyle}"
+                   Background="Transparent"
+               Margin="0,-3,0,0">
+
+            <PivotItem x:Name="CategoriesContext"
+                       Header="Assets/add_page.png">
+
+                <Border Margin="{StaticResource FlatDesign_Cards_Border}">
+
+                    <GridView x:Name="SelectGrid"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Center"
+                          ScrollViewer.VerticalScrollMode="Enabled"
+                          ScrollViewer.HorizontalScrollMode="Disabled"
+                          ItemsSource="{Binding CategoriesWithCosts}"
+                          IsItemClickEnabled="True"
+                          ItemClick="_addCost_Click"
+                          FlowDirection="LeftToRight"
+                          Style="{StaticResource FlatDesignGridView}">
+
+                        <GridView.Header>
+                            <Grid HorizontalAlignment="Stretch"
+                                  Margin="{StaticResource FlatDesign_PivotItems_TopMargin}">
+                            </Grid>
+                        </GridView.Header>
+
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:Name="dataTemplate" >
+                                <Grid Margin="{StaticResource Piggy_Category_Icons_Margin}">
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="{Binding ImageWidth}"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Ellipse Fill="{StaticResource FlatDesign_EllipseShadow}"
+                                         Grid.Row="0"
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Stretch"
+                                         Margin="1,1,0,0"/>
+
+                                    <Ellipse Fill="#FFEDEDED"
+                                         Grid.Row="0"
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Stretch"
+                                         Margin="0,0,1,1"/>
+
+                                    <Image x:Name="CategoryImage"
+                                           Source="{Binding ImagePath}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Margin="5"
+                                           Width="{Binding ImageWidth}"
+                                           MinWidth="60"
+                                           MaxWidth="120"
+                                           Grid.Row="0">
+                                    </Image>
+
+                                    <Grid x:Name="CategoryContainerGrid"
+                                      Grid.Row="0"
+                                      Width="Auto"
+                                      Height="Auto"
+                                      MinHeight="20"
+                                      Opacity="{Binding GroupSum, Converter={StaticResource CostNotificationVisibilityConverter}}"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Top"
+                                      Margin="0,0,0,0">
+
+                                        <TextBlock x:Name="NotificationTextBlock"
+                                               SizeChanged="NotificationTextBlock_SizeChanged"
+                                               Margin="0"
+                                               Text="{Binding GroupSum, Converter={StaticResource DoubleRoundedConverter}}"
+                                               FontWeight="Bold"
+                                               FontSize="14"
+                                               Foreground="DarkTurquoise"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               />
+                                    </Grid>
+
+                                    <TextBlock Text="{Binding GroupKey, Converter={StaticResource LocalizationConverter}}"
+                                           Grid.Row="1"
+                                           Style="{StaticResource Piggy_Category_CategoryNames}"
+                                           Margin="-4,0,0,6"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+
+                </Border>
+
+            </PivotItem>
+
+            <PivotItem x:Name="CategoryCosts_PivotItem"
+                           Header="Assets/summary_page.png">
+
+                <Border Margin="{StaticResource FlatDesign_Cards_Border}">
+
+                    <ListView x:Name="ChartListView"
+                                      Grid.Row="1"
+                                      ScrollViewer.VerticalScrollMode="Enabled"
+                                      ScrollViewer.HorizontalScrollMode="Disabled"
+                                      VerticalAlignment="Stretch"
+                                      ItemsSource="{Binding MonthlyStatistics}"
+                                      Style="{StaticResource AdjustableFooterListView}"
+                              IsItemClickEnabled="False">
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.Header>
+
+                            <Border x:Name="FlatDesign_BorderContainer"
+                                Background="{StaticResource FlatDesign_CardsBackground}"
+                                BorderBrush="{StaticResource FlatDesign_CardsBackground}"
+                                BorderThickness="{StaticResource FlatDesign_PivotItems_TopMargin}"
+                                Margin="{StaticResource FlatDesign_Cards_HeadersBorder}"
+                                MinHeight="{StaticResource FlatDesign_MinHeaderHeight}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch">
+
+                                <Grid x:Name="CategoryChartTitle"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Bottom"
+                                  Margin="{StaticResource FlatDesign_ChartContext_HeaderInnerMargin}"
+                                  Height="auto"
+                                  Grid.Row="0">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Grid.Column="0"
+                                    Orientation="Vertical"
+                                    HorizontalAlignment="Stretch">
+
+                                        <TextBlock x:Uid="MonthlySummary"
+                                       Text="" 
+                                       Style="{StaticResource Piggy_GroupHeader}"
+                                       Foreground="{StaticResource Piggy_LightBlack_FontBrush}"
+                                       HorizontalAlignment="Left"/>
+
+                                        <TextBlock x:Uid="PreviousMonth"
+                                       Text="" 
+                                       Style="{StaticResource Piggy_GroupHeaderDetails}"
+                                       HorizontalAlignment="Left"/>
+
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1"
+                                    Orientation="Vertical"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="3,0,0,0">
+
+                                        <TextBlock Text="{Binding MonthlyCategoryCosts.GroupSum, Converter={StaticResource DoubleRoundedToStringCurrencyConverter}}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"
+                                       Style="{StaticResource Piggy_GroupHeader}"/>
+
+                                        <TextBlock Text="{Binding PreviousMonthCategoryCosts.GroupSum, Converter={StaticResource DoubleRoundedToStringCurrencyConverter}}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"
+                                       Style="{StaticResource Piggy_GroupHeaderDetails}"/>
+                                    </StackPanel>
+
+                                </Grid>
+
+                            </Border>
+                        </ListView.Header>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:Name="MultiBindCategoryStatistics">
+
+                                <Border x:Name="Card_Design_MarginBorder"
+                                                Background="{StaticResource FlatDesign_CardsBackground}"
+                                                Margin="0">
+                                    <Grid x:Name="ChartGrid"
+                                                  HorizontalAlignment="Stretch"
+                                                  Margin="{StaticResource FlatDesign_ChartContext_InnerMargin}"
+                                                  MinHeight="{StaticResource FlatDesign_GraphsHeight}">
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Rectangle x:Name="RectangleToAdjustGraphWidth"
+                                                   SizeChanged="Rectangle_SizeChanged"
+                                                   Height= "auto"
+                                                   HorizontalAlignment="Stretch"
+                                                   Opacity="0"
+                                                   Fill="Violet"
+                                                   Grid.Column="2"
+                                                   Grid.Row="1"/>
+
+                                        <Rectangle x:Name="LastMonthRectangle"
+                                                   Height= "auto"
+                                                   Fill="{StaticResource Piggy_LastMonthBarFill}"
+                                                   Grid.Column="1"
+                                                   Grid.Row="1"
+                                                   HorizontalAlignment="Stretch"
+                                                   VerticalAlignment="Stretch"
+                                                   Margin="{StaticResource Piggy_Graph_TopOffsetMargin}"/>
+
+                                        <Rectangle x:Name="ThisMonthRectangle"
+                                                   Height= "auto"
+                                                   Fill="{StaticResource Piggy_ThisMonthBarFill}"
+                                                   Grid.Column="1"
+                                                   Grid.Row="1"
+                                                   HorizontalAlignment="Stretch"
+                                                   VerticalAlignment="Stretch"
+                                                   Margin="{StaticResource Piggy_Graph_BottomOffsetMargin}"/>
+
+                                        <Rectangle x:Name="LastMonthChartBar"
+                                                   Height= "auto"
+                                                   Width= "{Binding CategoryStatisticsData[LastMonth].ChartWidth}"
+                                                   Fill="{StaticResource Piggy_LastMonthBarFill}"
+                                                   Grid.Column="2"
+                                                   Grid.Row="1"
+                                                   HorizontalAlignment="Left"
+                                                   VerticalAlignment="Stretch"
+                                                   Margin="{StaticResource Piggy_Graph_TopOffsetMargin}"/>
+
+                                        <Rectangle x:Name="ThisMonthChartBar"
+                                                   Height= "auto"
+                                                   Width= "{Binding CategoryStatisticsData[ThisMonth].ChartWidth}"
+                                                   Fill="{StaticResource Piggy_ThisMonthBarFill}"
+                                                   Grid.Column="2"
+                                                   Grid.Row="1"
+                                                   HorizontalAlignment="Left"
+                                                   VerticalAlignment="Stretch"
+                                                   Margin="{StaticResource Piggy_Graph_BottomOffsetMargin}"/>
+
+                                        <StackPanel Orientation="Vertical"
+                                                            HorizontalAlignment="Stretch"
+                                                            VerticalAlignment="Stretch"
+                                                    MinWidth="{StaticResource Piggy_ChartContext_ValueMinWidth}"
+                                                            Grid.Column="3"
+                                                            Grid.Row="1">
+
+                                            <TextBlock Text="{Binding CategoryStatisticsData[ThisMonth].GroupSum, Converter={StaticResource DoubleRoundedToStringCurrencyConverter}}"
+                                                               TextWrapping="Wrap"
+                                                               HorizontalAlignment="Right"
+                                                               VerticalAlignment="Center"
+                                                               Style="{StaticResource Piggy_Summary_ThisValue}"/>
+
+                                            <TextBlock Text="{Binding CategoryStatisticsData[LastMonth].GroupSum, Converter={StaticResource DoubleRoundedToStringCurrencyConverter}}"
+                                                               TextWrapping="Wrap"
+                                                               HorizontalAlignment="Right"
+                                                               VerticalAlignment="Center"
+                                                               Style="{StaticResource Piggy_Summary_PreviousValue}"/>
+
+                                        </StackPanel>
+
+                                        <Border x:Name="BorderForPaddingControl"
+                                                        Grid.Column="1"
+                                                Grid.ColumnSpan="2"
+                                                        Grid.Row="1"
+                                                        BorderBrush="{StaticResource FlatDesign_CardsBackground}"
+                                                        BorderThickness="{StaticResource Piggy_Graph_PaddingMargin}"
+                                                        HorizontalAlignment="Stretch"
+                                                        VerticalAlignment="Stretch"/>
+
+                                        <Ellipse Fill="{StaticResource FlatDesign_IconShadow}"
+                                                 VerticalAlignment="Stretch"
+                                                 HorizontalAlignment="Stretch"
+                                                 Grid.Column="0"
+                                                 Grid.ColumnSpan="2"
+                                                 Grid.Row="1"
+                                                 Margin="{StaticResource Piggy_Icon_Shadow_OffsetMargin}"/>
+
+                                        <Ellipse Fill="{StaticResource FlatDesign_IconFace}"
+                                                 VerticalAlignment="Stretch"
+                                                 HorizontalAlignment="Stretch"
+                                                 Grid.Column="0"
+                                                 Grid.ColumnSpan="2"
+                                                 Grid.Row="1"
+                                                 Margin="{StaticResource Piggy_Icon_OffsetMargin}"/>
+
+                                        <Image Source="{Binding CategoryStatisticsData[ThisMonth].GroupImgPath}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Margin="10"
+                                                   Grid.Column="0"
+                                                   Grid.ColumnSpan="2"
+                                                   Grid.Row="1"
+                                                   Width="{StaticResource Piggy_Charts_ImageSize}"
+                                                   Height="{StaticResource Piggy_Charts_ImageSize}"/>
+
+                                        <TextBlock Text="{Binding CategoryStatisticsData[ThisMonth].GroupKey, Converter={StaticResource LocalizationConverter}}"
+                                                       Style="{StaticResource Piggy_Summary_CategoryName}"
+                                                   HorizontalAlignment="Left"
+                                                       Grid.Row="0"
+                                                       Grid.ColumnSpan="4"/>
+
+                                    </Grid>
+                                </Border>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                        <ListView.Footer>
+                            <Border x:Name ="ListViewFooter"
+                                        Background="{StaticResource FlatDesign_CardsBackground}"
+                                        HorizontalAlignment="Stretch">
+                            </Border>
+                        </ListView.Footer>
+                    </ListView>
+                </Border>
+
+            </PivotItem>
+
+            <PivotItem x:Name="CostsContext"
+                           Header="Assets/delete_cost_page.png">
+
+                <Border Margin="{StaticResource FlatDesign_Cards_Border}">
+
+                    <ListView ScrollViewer.VerticalScrollMode="Enabled"
+                              ScrollViewer.HorizontalScrollMode="Disabled"
+                              ItemsSource="{Binding Source={ StaticResource CVS_DateGrouped}}"
+                              Style="{StaticResource AdjustableFooterListView}">
+
+                        <ListView.GroupStyle>
+                            <GroupStyle HeaderContainerStyle="{StaticResource FlatDesign_Card_GroupHeaderStyle}">
+
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+
+                                        <Grid HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Bottom">
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Text="{Binding GroupKey}"
+                                                       Foreground="{StaticResource Piggy_LightBlack_FontBrush}"
+                                                       Width="Auto"
+                                                       Style="{StaticResource Piggy_GroupHeader}"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Bottom"
+                                                       FontSize="28"
+                                                       Grid.Column="0"
+                                                       Margin="0,0,0,0"/>
+
+                                            <TextBlock Text="{Binding GroupSum, Converter={StaticResource DoubleToStringCurrencyConverter}}"
+                                                       Foreground="{StaticResource Piggy_LightBrownBrush}"
+                                                       Width="Auto"
+                                                       HorizontalAlignment="Right"
+                                                       VerticalAlignment="Bottom"
+                                                       FontSize="28"
+                                                       Grid.Column="2"
+                                                       Style="{StaticResource Font-PTSansNarrow}"/>
+                                        </Grid>
+
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </ListView.GroupStyle>
+                        <ListView.Header>
+                            <StackPanel>
+                            <Border Background="{StaticResource FlatDesign_CardsBackground}"
+                                    BorderBrush="{StaticResource FlatDesign_CardsBackground}"
+                                    BorderThickness="{StaticResource FlatDesign_PivotItems_TopMargin}"
+                                    Margin="{StaticResource FlatDesign_Cards_HeadersBorder}"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Visibility="{Binding IsCostsHeaderVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+
+                                <Grid x:Name="CostsGridTitle"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Bottom"
+                                  Margin="{StaticResource FlatDesign_ChartContext_HeaderInnerMargin}"
+                                  Height="auto">
+
+                                    <StackPanel>
+                                        <TextBlock x:Uid="CostsHeader"
+                                               Text="Costs will show when you will start spending!" 
+                                               Style="{StaticResource Piggy_GroupHeader}"
+                                               Foreground="{StaticResource Piggy_LightBlack_FontBrush}"
+                                               HorizontalAlignment="Left"/>
+
+                                        <TextBlock x:Uid="CostsHeaderSubtitle"
+                                                   Text="Hold cost to delete." 
+                                                   Style="{StaticResource Piggy_GroupHeaderDetails}"
+                                                   HorizontalAlignment="Left"/>
+                                    </StackPanel>
+                                    
+                                </Grid>
+
+                                </Border>
+                            <Border BorderBrush="{StaticResource FlatDesign_CardsBackground}"
+                                    BorderThickness="{StaticResource FlatDesign_PivotItems_TopMargin}"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Visibility="{Binding IsCostsHeaderVisible, Converter={StaticResource NegativeBoolToVisibilityConverter}}"/>
+                            </StackPanel>
+
+                        </ListView.Header>
+                        
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                <Setter Property="BorderThickness" Value="{StaticResource FlatDesign_Cards_ItemsBorder}"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="Margin" Value="0,0,0,0"/>
+                                <Setter Property="Height" Value="55" />
+                                <Setter Property="Background" Value="{StaticResource FlatDesign_CardsBackground}"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:Name="listTemplate">
+
+                                <Grid HorizontalAlignment="Stretch"
+                                      Margin="{StaticResource FlatDesign_CostContext_InnerMargin}"
+                                      Background="Transparent"
+                                      Holding="_cost_Holding">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition MinWidth="100"
+                                                          MaxWidth="130"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition MinWidth="80"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <FlyoutBase.AttachedFlyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem x:Uid="Delete" 
+                                                            x:Name="DeleteButton"
+                                                            Text=""
+                                                            Click="_deleteButton_Click"
+                                                                />
+                                        </MenuFlyout>
+
+                                    </FlyoutBase.AttachedFlyout>
+
+                                    <Border Grid.ColumnSpan="5"/>
+
+                                    <Image Source="{Binding CategoryImage}"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           Width="45"
+                                           Grid.Column="0"
+                                           Margin="0,0,5,0"/>
+
+                                    <TextBlock Text="{Binding CategoryName, Converter={StaticResource LocalizationConverter}}"
+                                               HorizontalAlignment="Left"
+                                               Style="{StaticResource Piggy_Costs_CategoryName}"
+                                               Grid.Column="1"
+                                               />
+
+                                    <Border Grid.Column="1"
+                                            HorizontalAlignment="Stretch"
+                                            BorderThickness="0"/>
+
+                                    <TextBlock Text="{Binding Date, Converter={StaticResource ShortDateTimeConverter}, Mode=OneWay}"
+                                               TextWrapping="Wrap"
+                                               HorizontalAlignment="Left"
+                                               Margin="20,5,5,5"
+                                               Style="{StaticResource Piggy_Costs_DateValues}"
+                                               Grid.Column="2"
+                                               />
+
+                                    <Border Grid.Column="3"
+                                            HorizontalAlignment="Stretch"
+                                            BorderThickness="0"/>
+
+                                    <TextBlock Text="{Binding Value, Converter={StaticResource DoubleToStringCurrencyConverter}}"
+                                               TextWrapping="Wrap"
+                                               HorizontalAlignment="Right"
+                                               Style="{StaticResource Piggy_Costs_SpendingValues}"
+                                               Grid.Column="4"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                        <ListView.Footer>
+                            <Border x:Name ="CostListViewFooter"
+                                        Background="{StaticResource FlatDesign_CardsBackground}"
+                                        HorizontalAlignment="Stretch">
+                            </Border>
+                        </ListView.Footer>
+
+                    </ListView>
+
+                </Border>
+            </PivotItem>
+
+        </Pivot>
+
+    </Grid>
+</Page>

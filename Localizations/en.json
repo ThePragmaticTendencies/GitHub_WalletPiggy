@@ -1,0 +1,187 @@
+﻿[
+  {
+    "Key": "Bills",
+    "Value": "Bills"
+  },
+  {
+    "Key": "Bookings",
+    "Value": "Bookings"
+  },
+  {
+    "Key": "Car",
+    "Value": "Car"
+  },
+  {
+    "Key": "Charity",
+    "Value": "Charity"
+  },
+  {
+    "Key": "Child",
+    "Value": "Child"
+  },
+  {
+    "Key": "Cigarrettes",
+    "Value": "Cigarettes"
+  },
+  {
+    "Key": "Clothes",
+    "Value": "Clothes"
+  },
+  {
+    "Key": "Coffee",
+    "Value": "Coffee"
+  },
+  {
+    "Key": "Culture",
+    "Value": "Culture"
+  },
+  {
+    "Key": "Drunks",
+    "Value": "Alkohol"
+  },
+  {
+    "Key": "Eating Out",
+    "Value": "Eating Out"
+  },
+  {
+    "Key": "Extras",
+    "Value": "Luxuries"
+  },
+  {
+    "Key": "Food",
+    "Value": "Food"
+  },
+  {
+    "Key": "Fuel",
+    "Value": "Fuel"
+  },
+  {
+    "Key": "Gifts",
+    "Value": "Gifts"
+  },
+  {
+    "Key": "Health",
+    "Value": "Health"
+  },
+  {
+    "Key": "Hobby",
+    "Value": "Hobby"
+  },
+  {
+    "Key": "Home",
+    "Value": "Home"
+  },
+  {
+    "Key": "Hygiene",
+    "Value": "Hygiene"
+  },
+  {
+    "Key": "Loans",
+    "Value": "Loans"
+  },
+  {
+    "Key": "Other",
+    "Value": "Other"
+  },
+  {
+    "Key": "Pets",
+    "Value": "Pets"
+  },
+  {
+    "Key": "Phone",
+    "Value": "Phone"
+  },
+  {
+    "Key": "Repairs",
+    "Value": "Emergency"
+  },
+  {
+    "Key": "School",
+    "Value": "School"
+  },
+  {
+    "Key": "Sport",
+    "Value": "Sport"
+  },
+  {
+    "Key": "Sweets",
+    "Value": "Sweets"
+  },
+  {
+    "Key": "Transportation",
+    "Value": "Transportation"
+  },
+  {
+    "Key": "Travel",
+    "Value": "Travel"
+  },
+  {
+    "Key": "Work",
+    "Value": "Work"
+  },
+  {
+    "Key": "MonthlySummary",
+    "Value": "Monthly Summary"
+  },
+  {
+    "Key": "PreviousMonth",
+    "Value": "Previous Month"
+  },
+  {
+    "Key": "Delete",
+    "Value": "Delete"
+  },
+  {
+    "Key": "ADD",
+    "Value": "ADD"
+  },
+  {
+    "Key": "NoSdCard",
+    "Value": "SD not present"
+  },
+  {
+    "Key": "NoAccess",
+    "Value": "Cannot access folder"
+  },
+  {
+    "Key": "LoadFileLack",
+    "Value": "No backuped DB in location"
+  },
+  {
+    "Key": "BackUpFailed",
+    "Value": "Back up failed"
+  },
+  {
+    "Key": "BackUpLoaded",
+    "Value": "Loaded & Ready"
+  },
+  {
+    "Key": "DoYouWantBackUp",
+    "Value": "Perform Back Up / Clear"
+  },
+  {
+    "Key": "Negative",
+    "Value": "Can't be negative"
+  },
+  {
+    "Key": "MaxValue",
+    "Value": "It's max value"
+  },
+  {
+    "Key": "MaxOutputLength",
+    "Value": "It's max length"
+  },
+  {
+    "Key": "MaxDecimalLength",
+    "Value": "Only 2 decimals"
+  }
+  ,
+  {
+    "Key": "Souvenir",
+    "Value": "Souvenirs"
+  },
+  {
+    "Key": "MaxInteger",
+    "Value": "Max integer length"
+  }
+]
